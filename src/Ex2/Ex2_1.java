@@ -1,11 +1,12 @@
+package Ex2;
+
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.logging.*;
 import java.util.Random;
-import Thread.java;
+
 
 
 public class Ex2_1 {
@@ -34,13 +35,12 @@ public class Ex2_1 {
         } catch (IOException exe) {
             exe.printStackTrace();
         }
-
         return currentSum;
     }
 
 
     public static String[] createTextFiles(int n, int seed, int bound) {
-
+        System.out.println("creating " + n + " in seed: " + seed + " and bound: " + bound);
         String[] fhs = new String[n];
         for (int i = 1; i <= n; i++) {
 
@@ -78,10 +78,22 @@ public class Ex2_1 {
         return counter;
     }
 
-    public int getNumOfLinesThreads(String[] fileNames) {
-        for (int i = 0; i < fileNames.length; i++) {
-            Thread t1 = new Thread(fileNames[i]);
+    public static int getNumOfLinesThreads(String[] fileNames) {
+        int sum = 0;
+        FileThread[] arr = new FileThread[fileNames.length];
+        for (int i = 0; i < arr.length; i++)
+            arr[i] = new FileThread(fileNames[i], "Thread_"+i);
+        for (int i = 0; i < arr.length; i++)
+            arr[i].start();
+        for (int i = 0; i < arr.length; i++) {
+            try {
+                arr[i].join();
+                sum+= arr[i].getSum_lines();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+        return sum;
     }
 
 //    public int getNumOfLinesThreadPool(String[] fileNames) {
@@ -91,10 +103,11 @@ public class Ex2_1 {
     public static void main(String[] args) {
         //1
         String[] str = createTextFiles(2, 1, 10);
-        System.out.println(Arrays.toString(str));
+        System.out.println("part A, Function 1, done : " + Arrays.toString(str));
         //2
-        System.out.println(getNumOfLines(str));
+        System.out.println("part A, Function 2, done : " + getNumOfLines(str));
         //3
+        System.out.println("part A, Function 3, done : " + getNumOfLinesThreads(str));
     }
 }
 
