@@ -3,7 +3,12 @@ package Ex2;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.logging.*;
 import java.util.Random;
 
@@ -40,8 +45,11 @@ public class Ex2_1 {
 
 
     public static String[] createTextFiles(int n, int seed, int bound) {
-        System.out.println("creating " + n + " in seed: " + seed + " and bound: " + bound);
+        System.out.println("creating " + n + " files with random number of lines from seed: " + seed +
+                " to bound: " + bound);
         String[] fhs = new String[n];
+        Random rand = new Random(seed);
+        int random = rand.nextInt(bound);
         for (int i = 1; i <= n; i++) {
 
             fhs[i - 1] = "file_" + i;
@@ -55,8 +63,6 @@ public class Ex2_1 {
                 fh.setFormatter(formatter);
                 fh.setFormatter(new MyCustomFormatter());
 
-                Random rand = new Random(seed);
-                int random = rand.nextInt(bound);
                 for (int j = 1; j < random; j++) {
                     logger.info("i love life, she love lif, he love life, they love life, we all love life\n");
                 }
@@ -71,14 +77,19 @@ public class Ex2_1 {
     }
 
     public static int getNumOfLines(String[] fileNames) {
+        long start = System.currentTimeMillis();
         int counter = 0;
         for (int i = 0; i < fileNames.length; i++) {
             counter += sum_lines(fileNames[i]);
         }
+        long end = System.currentTimeMillis();
+        long elapsedTime= end - start;
+        System.out.println("Function number 1 run for :" + elapsedTime);
         return counter;
     }
 
     public static int getNumOfLinesThreads(String[] fileNames) {
+        long start = System.currentTimeMillis();
         int sum = 0;
         FileThread[] arr = new FileThread[fileNames.length];
         for (int i = 0; i < arr.length; i++)
@@ -93,21 +104,46 @@ public class Ex2_1 {
                 e.printStackTrace();
             }
         }
+        long end = System.currentTimeMillis();
+        long elapsedTime= end - start;
+        System.out.println("Function number 1 run for :" + elapsedTime);
         return sum;
     }
 
-//    public int getNumOfLinesThreadPool(String[] fileNames) {
-//    }
+    public static int getNumOfLinesThreadPool(String[] fileNames) {
+        long start = System.currentTimeMillis();
+        ThreadPoolExecutor pool = (ThreadPoolExecutor) Executors.newFixedThreadPool(fileNames.length);
+        int sum = 0;
+        ArrayList<Future<Integer>> future = new ArrayList<Future<Integer>>();
+        for (int i = 0; i < fileNames.length; i++) {
+            Future<Integer> f = pool.submit(new FileThreadCallable(fileNames[i]));
+            future.add(f);
+        }
+        for (int i = 0; i < fileNames.length; i++) {
+            try {
+                Future<Integer> f = future.get(i);
+                sum+= f.get();
+            } catch (InterruptedException e) {
+            } catch (ExecutionException e) {
+            };
+        }
+        long end = System.currentTimeMillis();
+        long elapsedTime= end - start;
+        System.out.println("Function number 1 run for :" + elapsedTime);
+        return sum;
+    }
 
 
     public static void main(String[] args) {
         //1
-        String[] str = createTextFiles(2, 1, 10);
+        String[] str = createTextFiles(2, 1, 30);
         System.out.println("part A, Function 1, done : " + Arrays.toString(str));
         //2
         System.out.println("part A, Function 2, done : " + getNumOfLines(str));
         //3
         System.out.println("part A, Function 3, done : " + getNumOfLinesThreads(str));
+        //4
+        System.out.println("part A, Function 4, done : " + getNumOfLinesThreadPool(str));
     }
 }
 
