@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e87de8f1-40e4-4951-8226-9b59feede25d" name="Changes" comment="">
+    <list default="true" id="e87de8f1-40e4-4951-8226-9b59feede25d" name="Changes" comment="'wip'">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Ex2/Ex2_1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ex2/Ex2_1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ex2/FileThreadPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ex2/FileThreadCallable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Ex2/FileThreadCallable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ex2/FileThreadCallable.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,11 +67,23 @@
       <option name="presentableId" value="Default" />
       <updated>1672765359986</updated>
       <workItem from="1672846547382" duration="317000" />
-      <workItem from="1672847561752" duration="1570000" />
+      <workItem from="1672847561752" duration="7585000" />
     </task>
+    <task id="LOCAL-00001" summary="'wip'">
+      <created>1672849348321</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1672849348321</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="'wip'" />
+    <option name="LAST_COMMIT_MESSAGE" value="'wip'" />
   </component>
 </project>
