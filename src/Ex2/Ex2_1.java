@@ -112,14 +112,14 @@ public class Ex2_1 {
 
     public static void main(String[] args) {
         //1
-        String[] str = createTextFiles(5, 1, 30);
+        String[] str = createTextFiles(100, 1, 100);
         System.out.println("part A, Function 1, done : " + Arrays.toString(str));
         //2
-        System.out.println("part A, Function 2, done : " + getNumOfLines(str));
+//        System.out.println("part A, Function 2, done : " + getNumOfLines(str));
         //3
-        System.out.println("part A, Function 3, done : " + getNumOfLinesThreads(str));
+//        System.out.println("part A, Function 3, done : " + getNumOfLinesThreads(str));
         //4
-        System.out.println("part A, Function 4, done : " + getNumOfLinesThreadPool(str));
+//        System.out.println("part A, Function 4, done : " + getNumOfLinesThreadPool(str));
     }
 }
 
