@@ -6,12 +6,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
-import java.util.logging.*;
-import java.util.Random;
 
 
 
@@ -35,12 +34,12 @@ public class Ex2_1 {
     public static String[] createTextFiles(int n, int seed, int bound){
         String[] files = new String[n];
         Random rand = new Random(seed);
-        int random = rand.nextInt(bound);
         for (int i = 0; i < n; i++) {
             String name= "file_" + (i+1)+ ".txt";
             files[i] = name;
             try {
                 FileWriter myWriter = new FileWriter(name);
+                int random = rand.nextInt(bound);
                 for (int j = 0; j < random; j++) {
                     myWriter.write("i love life, she love lif, he love life, they love life, we all love life\n");
                 }
