@@ -214,8 +214,9 @@ public class FileThreadCallable implements Callable {
 
 ## compare running times
 
-we can see that the run time of the sum lines using threadPool is less then the rest when checking for large amount of files, 
-because threadPool is using a reuse threads, rather then creating a new thread for each task and he supports multiple tasks, whereas the Threads class supports a single task.
+we can see that the run time of the sum lines using ThreadPool is less then the rest when checking for large amount of files, 
+because `ThreadPool` is using a reuse threads, rather then creating a new thread for each task, create a new thread cost more.
+and he supports multiple tasks, whereas the Threads class supports a single task.
 The ThreadPool is designed to submit and execute multiple tasks,so because of that it will calculate all the files faster then thread.  
 
 secondly we can see that thread fast then the second function(sum lines in normal way), because it perform multiple tasks concurrently.
@@ -239,6 +240,6 @@ In order to run this project follow this steps:
   2. Extract all on yor computer.  
   3. Open a new java project.  
   4. Open the file in your java's workspace.  
-  5. Press on pom.xml.  
-  6. Press ok.  
+  5. go to Ex2_1 class.  
+  6. go to main function.  
   7. Run the project.  
