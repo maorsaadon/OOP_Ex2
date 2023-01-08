@@ -1,16 +1,174 @@
-Random
+
+# Ex2_PartA
+
+## Ex2_1
+
+In this class we using radnom class to get a radnom genertor number to decide the amount of lines to put in each file.\
+this is what random class do:\
+<ins>**Random**</ins>\
 The Random class is used to generate random numbers. 
 It provides several methods for generating different types of random values, such as nextInt() for generating a random integer and nextDouble() for generating a random double-precision floating-point value.
 The Random class uses a seed value to initialize the random number generator. The same seed value will always produce the same sequence of random numbers.
 This can be useful for testing or debugging, as it allows you to reproduce the same random values over and over again.
 
-Thread
-Thread is a separate flow of execution in a program. A Java program can have multiple threads running concurrently, each performing a different task.
-the way we create a new thread is:
-Extending the Thread class: To create a new thread by extending the Thread class, you need to override the run() method, which is the entry point for the new thread.
-Then, you can create an instance of your subclass and call its start() method to start the new thread.
+after this we made all 4 function to calculate the sum lines of all files and the time it took for each function.  
+the diffrent in each function is in what way he calculate the sum lines.  
 
-ThreadPool
+first function is to creates txt files and to random generate amount of lines for each file and put each file in a array.  
+  
+```java
+    /**
+     * this function create text files, put each file in the array
+     * and write to each one a random amount of lines
+     * @param n -represent the amount of files
+     * @param seed - used to initialize a pseudorandom number generator
+     * @param bound -the max integer that the random number can be
+     * @return arrays of files
+     */
+    public static String[] createTextFiles(int n, int seed, int bound){
+        String[] files = new String[n];
+        Random rand = new Random(seed);
+        int random = rand.nextInt(bound);
+        for (int i = 0; i < n; i++) {
+            String name= "file_" + (i+1)+ ".txt";
+            files[i] = name;
+            try {
+                FileWriter myWriter = new FileWriter(name);
+                for (int j = 0; j < random; j++) {
+                    myWriter.write("i love life, she love lif, he love life, they love life, we all love life\n");
+                }
+                myWriter.close();
+            } catch (IOException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
+
+
+        }
+        return files;
+    }
+```
+second function is to calculate the sum lines of all files in the array and return the sum.  
+```java
+/**
+     * this function take the array of files and count the amount of line in each file and sum it together
+     * @param fileNames- array of files names
+     * @return the amount of lines in all files
+     */
+    public static int getNumOfLines(String[] fileNames) {
+        long start = System.currentTimeMillis();
+        int counter = 0;
+        for (int i = 0; i < fileNames.length; i++) {
+            counter += sum_lines(fileNames[i]);
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("Function 'getNumOfLines' run for: " + (end - start) + " ms.");
+        return counter;
+    }
+```
+third function is to calculate the sum lines of all files in the array using threads.  
+```java
+/**
+     * this function use threads to sum all lines in all files
+     * we take the array of files and for each file use a diffrent thread to calculate the amount of lines
+     * and add that to the object sum
+     * @param fileNames- array of files names
+     * @return the amount of lines in all files
+     */
+    public static int getNumOfLinesThreads(String[] fileNames) {
+        long start = System.currentTimeMillis();
+        int sum = 0;
+        FileThread[] arr = new FileThread[fileNames.length];
+        for (int i = 0; i < arr.length; i++){
+            arr[i] = new FileThread(fileNames[i], "Thread_" + i);
+            arr[i].start();
+            try {
+                arr[i].join();
+                sum+= arr[i].getSum_lines();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("Function 'getNumOfLinesThreads' run for: " + (end - start) + " ms.");
+        return sum;
+    }
+```
+forth function is to calculate the sum lines of all files in the array using threadPool.  
+```java
+/**
+     * this function sum the lines of all the files using ThreadPool
+     *
+     * @param fileNames- array of files names
+     * @return the amount of lines in all files
+     */
+    public static int getNumOfLinesThreadPool(String[] fileNames) {
+        long start = System.currentTimeMillis();
+        ThreadPoolExecutor pool = (ThreadPoolExecutor) Executors.newFixedThreadPool(fileNames.length);
+        int sum = 0;
+        ArrayList<Future<Integer>> future = new ArrayList<Future<Integer>>();
+        for (int i = 0; i < fileNames.length; i++) {
+            Future<Integer> f = pool.submit(new FileThreadCallable(fileNames[i]));
+            future.add(f);
+
+        }
+        for (Future<Integer> f : future) {
+            try {
+                sum+= f.get();
+            } catch (InterruptedException e) {
+            } catch (ExecutionException e) {};
+
+        }
+
+        pool.shutdown();
+        long end = System.currentTimeMillis();
+        System.out.println("Function 'getNumOfLinesThreadPool' run for: " + (end - start) + " ms.");
+        return sum;
+    }
+```
+
+## The main classes
+
+1.Thread\
+2.ThreadPool
+
+
+<ins>**Thread**</ins>
+
+Thread is a separate flow of execution in a program. A Java program can have multiple threads running concurrently, each performing a different task.\
+the way we create a new thread is:
+We extending the Thread class: To create a new thread by extending the Thread class, we need to override the run() method, which is the entry point for the new thread.
+Then, we can create an instance of our subclass and call its start() method to start the new thread(that happend in our Ex2_1 class).
+
+```java
+import static Ex2.Ex2_1.sum_lines;
+
+public class FileThread extends java.lang.Thread {
+    String file_name;
+    int sum_lines;
+
+    public FileThread(String file_name, String name) {
+        super(name);
+        this.file_name = file_name;
+    }
+
+    @Override
+    public void run() {
+        setSum_lines(sum_lines(file_name));
+    }
+
+    public int setSum_lines(int sum_lines){
+        return this.sum_lines += sum_lines;
+    }
+    public int getSum_lines(){
+        return sum_lines;
+    }
+
+}
+```
+
+<ins>**ThreadPool**</ins>
+
 A thread pool is a group of pre-initialized, reusable threads that can be used to execute tasks concurrently.
 ThreadPools are used to manage the execution of multiple threads and to reduce the overhead of creating and destroying threads for short-lived tasks.
 
@@ -19,6 +177,53 @@ It is similar to the Runnable interface, but it can return a value and is design
 To create a Callable in Java, you need to implement the call() method.
 This method takes no arguments and returns a value of the generic type V. It can also throw a checked exception.
 
+```java
+import java.util.concurrent.*;
+
+import static Ex2.Ex2_1.sum_lines;
+
+/**
+ * this class is implemented by callable functional interface
+ * it represents a task that can return a value and may throw an exception
+ * this class create object that call file_name - for calculate the sum lines in each file
+ */
+public class FileThreadCallable implements Callable {
+    String file_name;
+
+    /**
+     * this constructor its implementing all the objects that callable have
+     * and make the string file_name
+     * @param file_name- each file
+     */
+    public FileThreadCallable(String file_name) {
+        super();
+        this.file_name = file_name;
+    }
+
+    /**
+     * This method takes no arguments and returns a value of the sum of lines in each file
+     * @return the amount of lines in the file
+     * @throws Exception- if the call function will not work
+     */
+    @Override
+    public Object call() throws Exception {
+        return sum_lines(file_name);
+    }
+}
+```
+
+## compare running times
+
+we can see that the run time of the sum lines using threadPool is less then the rest when checking for large amount of files, 
+because threadPool is using a reuse threads, rather then creating a new thread for each task and he supports multiple tasks, whereas the Threads class supports a single task.
+The ThreadPool is designed to submit and execute multiple tasks,so because of that it will calculate all the files faster then thread.  
+
+secondly we can see that thread fast then the second function(sum lines in normal way), because it perform multiple tasks concurrently.
+creating a new thread is generally faster and requires fewer resources than creating a new process.
+This is because creating a new thread involves creating a new execution path within an existing process, while creating a new process involves creating a completely new instance of a program.
+In addition, the running time of a thread may be affected by the presence of other concurrent threads within the same process.
+If multiple threads within a process are competing for the same resources, this can lead to delays and reduced performance.
+On the other hand, processes are typically isolated from one another, so the presence of other processes should not have a significant impact on the running time of a particular process.
 
 
 
@@ -27,109 +232,13 @@ This method takes no arguments and returns a value of the generic type V. It can
 
 
 
+## Download & run the program
 
-
-
-
-
-
-
-
-
-
-
-
-
-The Main Interface
-1.Sender
-2.Member
-
-1.Sender
-This interface describes the Observerable (update sender). This interface hold the function that the GroupAdmin actualize.
-
-Declaration
-import observer.Sender;  
-
-//methods to register and unregister observers
-void register(Member obj);
-void unregister(Member obj) throws Exception;
-
-//Inserts the string into this character sequence.
-void insert(int offset, String obj);
-
-// Appends the specified string to this character sequence.
-void append(String obj);
-
-// Removes the characters in a substring of this sequence.
-void delete(int start, int end);
-
-// Erases the last change done to the document, reverting it to an older state. 
-void undo();
-2.Member
-This interface describes the Observer (update reciever). This interface hold the function that ConcreteMember actualize.
-
-Declaration
-import observer.Member;
-
-public void update(UndoableStringBuilder usb);
-The Main Classes
-1.UndoableStringBuilder
-2.AdminGroup
-3.ConcreteMember
-
-1.UndoableStringBuilder
-This class use the StringBuilder class methods to make our UndoableStringBuilder class.
-We crate methods using the methods that StringBuilder have.
-The idea of this class is to give us the latest thing that the object had.
-This UndoableStringBuilder class take a StringBuilder and give us the perv word or sentence that this StringBuilder had with using stack.
-
-2.GroupAdmin
-This class actualize the functions of the Sender that describe the Observerbale, and we also have function that notify the observers and function to return the size of the member.
-GroupAdmin contains the state pool (UdoableStringBuilder) and also contains an HashSet that holds all customers who should receive updates on any changes made to the state pool , the class has a constructor that builds a GroupAdmin from UdoableStringBuilder and HashSet. In every function we call notify() in order to update all the member about every change that has been made to the UndoableStringBuilder.
-
-notify(HashSet<Member>);
-Usage
-import observer.GroupAdmin;  
-
-//Add the Member to the GroupAdmin.  
-GroupAdmin.register(Member);
-
-//Remove the Member to the GroupAdmin.  
-GroupAdmin.unregister(Member);
-
-//Inserts the string into this character sequence.  
-GroupAdmin.insert(int,String);
-
-//Appends the specified String to this  character sequence.  
-GroupAdmin.append(String);
-
-//Removes the characters in a substring of this sequence.  
-GroupAdmin.delete(int, int);
-
-//Performs a return to the previous state.  
-GroupAdmin.undo();
-
-//Return the number of the members
-GroupAdmin.getSizeMember();
-3.ConcreteMember
-This class actualize the functions of the Member that describe the Observer, and we also have function to getData().
-ConcreteMember contains String that update every time the GroupAdmin notify about a change in other word its a copy (copy sallow) of the UndoableStringBuilder
-
-Usage
-import observer.ConcreteMember;
-
-//Update the String that ConcreteMember hold according to change of the UndoableStringBuilder of the GroupAdmin
-ConcreteMember.update(UndoableStringBuilder);
-
-//Return the String that ConcreteMember hold
-ConcreteMember.getData();
-Download & run the program
-In order to run this project follow this steps:
-
-Download zip from our reposetory : push on code -> Download zip.
-Extract all on yor computer.
-Open a new java project.
-Open the file in your java's workspace.
-Press on pom.xml.
-Press ok.
-Run the project.
+In order to run this project follow this steps:  
+  1. Download zip from our reposetory : push on code -> Download zip.  
+  2. Extract all on yor computer.  
+  3. Open a new java project.  
+  4. Open the file in your java's workspace.  
+  5. Press on pom.xml.  
+  6. Press ok.  
+  7. Run the project.  
