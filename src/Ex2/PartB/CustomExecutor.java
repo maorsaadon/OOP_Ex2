@@ -53,7 +53,6 @@ public class CustomExecutor extends ThreadPoolExecutor{
         if (task == null || task.getCallable() == null)
             throw new NullPointerException();
         taskTypeArr[task.getPriority()-1]++;
-        System.out.println(task.getPriority());
         RunnableFuture<T> futereTask = newTaskFor(task);
         execute(futereTask);
         return futereTask;
@@ -69,18 +68,6 @@ public class CustomExecutor extends ThreadPoolExecutor{
         Task<T> task = Task.createTask(tCallable);
         return submit(task);
     }
-
-//    @Override
-//    protected void afterExecute(Runnable run, Throwable throw1) {
-//        super.afterExecute(run, throw1);
-//        if (throw1 == null) {
-//            int priority = getCurrentMax();
-//            if (1 <= priority && priority <= 3)
-//                taskTypeArr[priority - 1]--;
-//        }
-//        else
-//            System.out.println("encountered exception- " +throw1.getMessage());
-//    }
 
 
     public void gracefullyTerminate()  {
