@@ -1,9 +1,9 @@
-package Ex2.PartB;
+package PartB;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 
-import static Ex2.PartB.TaskType.*;
+import static PartB.TaskType.*;
 
 public class Task<T> extends FutureTask<T>
             implements Comparable<Task<T>>, Callable<T>{

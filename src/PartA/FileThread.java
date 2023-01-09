@@ -1,6 +1,6 @@
-package Ex2.PartA;
+package PartA;
 
-import static Ex2.PartA.Ex2_1.sum_lines;
+import static PartA.Ex2_1.sum_lines;
 
 public class FileThread extends java.lang.Thread {
     String file_name;

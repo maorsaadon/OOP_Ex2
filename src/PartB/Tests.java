@@ -1,4 +1,4 @@
-package Ex2.PartB;
+package PartB;
 
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.logging.Logger;

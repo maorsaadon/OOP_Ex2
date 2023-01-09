@@ -1,4 +1,4 @@
-package Ex2.PartB;
+package PartB;
 
 import java.util.concurrent.*;
 
@@ -89,7 +89,6 @@ public class CustomExecutor extends ThreadPoolExecutor{
         if(taskTypeArr[2] > 0)
             return 3;
        return 0;
-
     }
 
     public int hashCode() {

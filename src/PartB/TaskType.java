@@ -1,4 +1,4 @@
-package Ex2.PartB;
+package PartB;
 
 public enum TaskType {
     COMPUTATIONAL(1){
