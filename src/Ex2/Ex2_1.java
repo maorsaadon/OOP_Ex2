@@ -15,6 +15,12 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 
 public class Ex2_1 {
+
+    /**
+     * this function sum the amount of lines in each file
+     * @param file
+     * @return the amount of lines
+     */
     public static int sum_lines(String file) {
         int currentSum = 0;
         try {
@@ -31,6 +37,14 @@ public class Ex2_1 {
         return currentSum;
     }
 
+    /**
+     * this function create text files, put each file in the array
+     * and write to each one a random amount of lines
+     * @param n -represent the amount of files
+     * @param seed - used to initialize a pseudorandom number generator
+     * @param bound -the max integer that the random number can be
+     * @return arrays of files
+     */
     public static String[] createTextFiles(int n, int seed, int bound){
         String[] files = new String[n];
         Random rand = new Random(seed);
@@ -54,6 +68,11 @@ public class Ex2_1 {
         return files;
     }
 
+    /**
+     * this function take the array of files and count the amount of line in each file and sum it together
+     * @param fileNames- array of files names
+     * @return the amount of lines in all files
+     */
     public static int getNumOfLines(String[] fileNames) {
         long start = System.currentTimeMillis();
         int counter = 0;
@@ -65,7 +84,14 @@ public class Ex2_1 {
         return counter;
     }
 
-    public static int getNumOfLinesThreads(String[] fileNames) {
+    /**
+     * this function use threads to sum all lines in all files
+     * we take the array of files and for each file use a diffrent thread to calculate the amount of lines
+     * and add that to the object sum
+     * @param fileNames- array of files names
+     * @return the amount of lines in all files
+     */
+    public int getNumOfLinesThreads(String[] fileNames) {
         long start = System.currentTimeMillis();
         int sum = 0;
         FileThread[] arr = new FileThread[fileNames.length];
@@ -84,7 +110,13 @@ public class Ex2_1 {
         return sum;
     }
 
-    public static int getNumOfLinesThreadPool(String[] fileNames) {
+    /**
+     * this function sum the lines of all the files using ThreadPool
+     *
+     * @param fileNames- array of files names
+     * @return the amount of lines in all files
+     */
+    public int getNumOfLinesThreadPool(String[] fileNames) {
         long start = System.currentTimeMillis();
         ThreadPoolExecutor pool = (ThreadPoolExecutor) Executors.newFixedThreadPool(fileNames.length);
         int sum = 0;
@@ -110,15 +142,16 @@ public class Ex2_1 {
 
 
     public static void main(String[] args) {
+        Ex2_1 x= new Ex2_1();
         //1
-        String[] str = createTextFiles(100, 1, 100);
+        String[] str = createTextFiles(100, 1, 1000);
         System.out.println("part A, Function 1, done : " + Arrays.toString(str));
         //2
-//        System.out.println("part A, Function 2, done : " + getNumOfLines(str));
+        System.out.println("part A, Function 2, done : " + getNumOfLines(str));
         //3
-//        System.out.println("part A, Function 3, done : " + getNumOfLinesThreads(str));
+        System.out.println("part A, Function 3, done : " + x.getNumOfLinesThreads(str));
         //4
-//        System.out.println("part A, Function 4, done : " + getNumOfLinesThreadPool(str));
+        System.out.println("part A, Function 4, done : " + x.getNumOfLinesThreadPool(str));
     }
 }
 
