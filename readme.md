@@ -212,6 +212,9 @@ public class FileThreadCallable implements Callable {
 }
 ```
 
+## UML diagram of the classes
+
+
 ## compare running times
 
 ![image](https://user-images.githubusercontent.com/118104946/211316585-58fe31a6-c0a8-4751-a37c-be17562f15f0.png)
