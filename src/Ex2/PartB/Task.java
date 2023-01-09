@@ -1,20 +1,22 @@
-package Ex2_2;
+package Ex2.PartB;
 
-import java.util.Comparator;
 import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
 
-public class Task<T>
+public class Task<T> extends FutureTask<T>
             implements Comparable<Task<T>>, Callable<T>{
 
     private TaskType taskType;
     private Callable<T> callable;
 
     private Task(Callable<T> callable, TaskType taskType) {
+        super(callable);
         setTaskType(taskType);
         setCallable(callable);
     }
 
     private Task( Callable<T> callable) {
+        super(callable);
         setTaskType();
         setCallable(callable);
     }
@@ -48,18 +50,28 @@ public class Task<T>
     }
 
     public static<T> Task<T> createTask(Callable<T> callable, TaskType taskType){
-       return new Task(callable, taskType);
+       return new Task<T>(callable, taskType);
     }
 
 
     public static<T> Task<T> createTask(Callable<T> callable){
-        return new Task(callable);
+        return new Task<T>(callable);
     }
 
     @Override
     public int compareTo(Task<T> other) {
         final long diff = other.taskType.getPriorityValue() - taskType.getPriorityValue();
         return 0 == diff ? 0 : 0 > diff ? 1 : -1;
+    }
+
+    public boolean equals(Task<T> other) {
+        if (compareTo(other) == 0)
+            return true;
+        return false;
+    }
+
+    public int hashcode() {
+        return this.taskType.getPriorityValue()*this.callable.hashCode();
     }
 
 

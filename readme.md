@@ -141,7 +141,7 @@ We extending the Thread class: To create a new thread by extending the Thread cl
 Then, we can create an instance of our subclass and call its start() method to start the new thread(that happend in our Ex2_1 class).
 
 ```java
-import static Ex2.Ex2_1.sum_lines;
+import static Ex2.PartA.Ex2_1.sum_lines;
 
 public class FileThread extends java.lang.Thread {
     String file_name;
@@ -157,10 +157,11 @@ public class FileThread extends java.lang.Thread {
         setSum_lines(sum_lines(file_name));
     }
 
-    public int setSum_lines(int sum_lines){
+    public int setSum_lines(int sum_lines) {
         return this.sum_lines += sum_lines;
     }
-    public int getSum_lines(){
+
+    public int getSum_lines() {
         return sum_lines;
     }
 
@@ -180,7 +181,7 @@ This method takes no arguments and returns a value of the generic type V. It can
 ```java
 import java.util.concurrent.*;
 
-import static Ex2.Ex2_1.sum_lines;
+import static Ex2.PartA.Ex2_1.sum_lines;
 
 /**
  * this class is implemented by callable functional interface

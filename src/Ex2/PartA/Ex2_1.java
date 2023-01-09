@@ -1,4 +1,4 @@
-package Ex2;
+package Ex2.PartA;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

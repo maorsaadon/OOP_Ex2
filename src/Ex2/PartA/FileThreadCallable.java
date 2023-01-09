@@ -1,7 +1,7 @@
-package Ex2;
+package Ex2.PartA;
 import java.util.concurrent.*;
 
-import static Ex2.Ex2_1.sum_lines;
+import static Ex2.PartA.Ex2_1.sum_lines;
 public class FileThreadCallable implements Callable {
     String file_name;
 
