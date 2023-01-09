@@ -214,6 +214,8 @@ public class FileThreadCallable implements Callable {
 
 ## compare running times
 
+![image](https://user-images.githubusercontent.com/118104946/211316585-58fe31a6-c0a8-4751-a37c-be17562f15f0.png)
+
 we can see that the run time of the sum lines using ThreadPool is less then the rest when checking for large amount of files, 
 because `ThreadPool` is using a reuse threads, rather then creating a new thread for each task, create a new thread cost more.
 and he supports multiple tasks, whereas the Threads class supports a single task.
