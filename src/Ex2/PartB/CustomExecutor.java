@@ -8,7 +8,24 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class CustomExecutor extends ThreadPoolExecutor{
     static int num = Runtime.getRuntime().availableProcessors();
+
     private int[] taskTypeArr = {0,0,0};
+
+    public static int getNum() {
+        return num;
+    }
+
+    public static void setNum(int num) {
+        CustomExecutor.num = num;
+    }
+
+    public int[] getTaskTypeArr() {
+        return taskTypeArr;
+    }
+
+    public void setTaskTypeArr(int[] taskTypeArr) {
+        this.taskTypeArr = taskTypeArr;
+    }
 
 
     public CustomExecutor() {
