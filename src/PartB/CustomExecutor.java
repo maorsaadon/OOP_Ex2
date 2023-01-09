@@ -53,7 +53,6 @@ public class CustomExecutor extends ThreadPoolExecutor{
         if (task == null || task.getCallable() == null)
             throw new NullPointerException();
         taskTypeArr[task.getPriority()-1]++;
-        System.out.println(task.getPriority());
         RunnableFuture<T> futereTask = newTaskFor(task);
         execute(futereTask);
         return futereTask;
