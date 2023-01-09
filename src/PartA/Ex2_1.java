@@ -1,4 +1,4 @@
-package Ex2.PartA;
+package PartA;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -141,18 +141,7 @@ public class Ex2_1 {
     }
 
 
-    public static void main(String[] args) {
-        Ex2_1 x= new Ex2_1();
-        //1
-        String[] str = createTextFiles(100, 1, 1000);
-        System.out.println("part A, Function 1, done : " + Arrays.toString(str));
-        //2
-        System.out.println("part A, Function 2, done : " + getNumOfLines(str));
-        //3
-        System.out.println("part A, Function 3, done : " + x.getNumOfLinesThreads(str));
-        //4
-        System.out.println("part A, Function 4, done : " + x.getNumOfLinesThreadPool(str));
-    }
+
 }
 
 
