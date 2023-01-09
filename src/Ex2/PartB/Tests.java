@@ -140,4 +140,41 @@ public class Tests {
         logger.info(() -> Arrays.toString(c.getTaskTypeArr()));
 
     }
+
+    public static void main(String[] args) throws InterruptedException {
+        Callable<Integer> callable1 = ()->8000*50;
+        Callable<Integer> callable2 = ()->8*5;
+        Callable<Integer> callable3 = ()->8*1;
+        Task<Integer> task1 = Task.createTask(callable1,TaskType.COMPUTATIONAL);
+        Task<Integer> task2 = Task.createTask(callable2,TaskType.IO);
+        Task<Integer> task3 = Task.createTask(callable3,TaskType.COMPUTATIONAL);
+        CustomExecutor c = new CustomExecutor();
+        Future<Integer> f1 = c.submit(task1);
+        Future<Integer> f2 = c.submit(task2);
+        Future<Integer> f3 = c.submit(task3);
+        try{
+            System.out.println(f1.get());
+            System.out.println(f2.get());
+            System.out.println(f3.get());
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        for (int i = 0; i < 100; i++) {
+            int finalI = i;
+            Callable<Integer> callable = ()->10* finalI;
+            Task<Integer> task= Task.createTask(callable,TaskType.COMPUTATIONAL);
+            int priority = i%3;
+            //.setTypePriority(priority);
+            Future<Integer> f = c.submit(task);
+            System.out.println("max before: "+c.getCurrentMax());
+            try{
+                System.out.println(f.get());
+            }catch(Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
+        System.out.println("max after: " + c.getCurrentMax());
+        c.gracefullyTerminate();
+    }
 }

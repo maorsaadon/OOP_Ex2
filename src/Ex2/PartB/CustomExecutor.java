@@ -34,7 +34,6 @@ public class CustomExecutor extends ThreadPoolExecutor{
     }
     @Override
     protected void beforeExecute(Thread thread, Runnable run) {
-        super.beforeExecute(thread, run);
         int priority = getCurrentMax();
         if (1<=priority && priority<=3)
             taskTypeArr[priority-1]--;
@@ -53,7 +52,8 @@ public class CustomExecutor extends ThreadPoolExecutor{
     public <T> Future<T> submit (Task<T> task){
         if (task == null || task.getCallable() == null)
             throw new NullPointerException();
-        taskTypeArr[task.getTaskType().getPriorityValue()-1]++;
+        taskTypeArr[task.getPriority()-1]++;
+        System.out.println(task.getPriority());
         RunnableFuture<T> futereTask = newTaskFor(task);
         execute(futereTask);
         return futereTask;

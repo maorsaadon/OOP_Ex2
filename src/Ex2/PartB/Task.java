@@ -3,6 +3,8 @@ package Ex2.PartB;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 
+import static Ex2.PartB.TaskType.*;
+
 public class Task<T> extends FutureTask<T>
             implements Comparable<Task<T>>, Callable<T>{
 
@@ -38,30 +40,15 @@ public class Task<T> extends FutureTask<T>
     }
 
     public void setTaskType() {
-        setTaskType(TaskType.OTHER);
-    }
-
-
-
-
-    @Override
-    public T call() throws Exception {
-        return callable.call();
+        setTaskType(OTHER);
     }
 
     public static<T> Task<T> createTask(Callable<T> callable, TaskType taskType){
-       return new Task<T>(callable, taskType);
+        return new Task<T>(callable, taskType);
     }
-
 
     public static<T> Task<T> createTask(Callable<T> callable){
         return new Task<T>(callable);
-    }
-
-    @Override
-    public int compareTo(Task<T> other) {
-        final long diff = other.taskType.getPriorityValue() - taskType.getPriorityValue();
-        return 0 == diff ? 0 : 0 > diff ? 1 : -1;
     }
 
     public boolean equals(Task<T> other) {
@@ -74,6 +61,22 @@ public class Task<T> extends FutureTask<T>
         return this.taskType.getPriorityValue()*this.callable.hashCode();
     }
 
+    public int getPriority(){
+        if (taskType.getType() == COMPUTATIONAL) return 1;
+        if (taskType.getType() == IO) return 2;
+        else return 3;
+    }
+
+    @Override
+    public T call() throws Exception {
+        return callable.call();
+    }
+
+    @Override
+    public int compareTo(Task<T> other) {
+        final long diff = other.taskType.getPriorityValue() - taskType.getPriorityValue();
+        return 0 == diff ? 0 : 0 > diff ? 1 : -1;
+    }
 
 }
 
