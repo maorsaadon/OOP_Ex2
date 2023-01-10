@@ -226,6 +226,11 @@ In order to run this project follow this steps:
   //A method whose purpose is to prevent the insertion of additional tasks into the queue, the execution of all tasks remaining in the queue and the termination of all   //tasks currently in execution in the collection of threads of the CustomExecutor.
   public void gracefullyTerminate() 
   ```
+  
+  ### UML diagram of the classes
+  
+  ![ClassDiagram_PartB](https://user-images.githubusercontent.com/105555708/211603790-d34cd191-3551-41ff-b3b1-33e224a64875.png)
+  
   ### Download & run the program
 
   In order to run this project follow this steps:  
