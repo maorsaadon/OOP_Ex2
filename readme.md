@@ -87,9 +87,24 @@ FileThreadCallable's methods:
 
 ![image](https://user-images.githubusercontent.com/118104946/211318064-889235e8-fb96-4a1f-84d6-b840f6c109ad.png)
 
+
 ### compare running times
 
-![image](https://user-images.githubusercontent.com/118104946/211316585-58fe31a6-c0a8-4751-a37c-be17562f15f0.png)
+The input :  
+![Picture4](https://user-images.githubusercontent.com/105555708/211574601-7232956a-d6bd-4231-8357-8fc18e10f41a.png)
+
+The output fo func 2 : 
+
+![Picture1](https://user-images.githubusercontent.com/105555708/211574310-35b0b477-375f-4196-8e45-6caa2f494e9b.png)
+
+The output fo func 3 : 
+
+![Picture2](https://user-images.githubusercontent.com/105555708/211576079-60007faa-fd38-45bb-b2e0-c9c307b8d44a.png)
+
+The output fo func 4 : 
+
+![Picture3](https://user-images.githubusercontent.com/105555708/211576184-0ac93002-f902-4962-a270-bb8dda11659f.png)
+
 
 we can see that the run time of the sum lines using ThreadPool is less then the rest when checking for large amount of files, 
 because `ThreadPool` is using a reuse threads, rather then creating a new thread for each task, create a new thread cost more.
