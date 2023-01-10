@@ -93,8 +93,8 @@ FileThreadCallable's methods:
 Number of files | getNumOfLines | getNumOfLinesThreads | getNumOfLinesThreadPool
 | :---: | :---: | :---: | :---: |
 100 | 143 ms | 141 ms | 71 ms
-300 | Content Cell | Content Cell | Content Cell
-500 | Content Cell | Content Cell | Content Cell
+300 | 1835 ms | 1581 ms | 442 ms
+500 | 2488 ms | 2387 ms | 726 ms
 
 we can see that the run time of the sum lines using ThreadPool is less then the rest when checking for large amount of files, 
 because `ThreadPool` is using a reuse threads, rather then creating a new thread for each task, create a new thread cost more.
@@ -116,8 +116,7 @@ In order to run this project follow this steps:
   2. Extract all on yor computer.  
   3. Open a new java project.  
   4. Open the file in your java's workspace.  
-  5. go to Ex2_1 class.  
-  6. go to main function.  
+  5. go to Ex2 class.   
   7. Run the project.  
   
   
@@ -131,11 +130,11 @@ In order to run this project follow this steps:
   2. Task   
   3. CustomExecutor 
 
-<ins>**TaskType**</ins>
+ <ins>**TaskType**</ins>
 
-This class present enum TaskType which describes the task type and its priority
+ This class present enum TaskType which describes the task type and its priority
 
-<ins>**Task**</ins>
+ <ins>**Task**</ins>
 
  Represents an operation that can be run asynchronously and can return a value of some type.  
  The class Task<T> extend from FutureTask<T> and implements Comparable<Task<T>>, Callable<T>.  
@@ -227,3 +226,12 @@ This class present enum TaskType which describes the task type and its priority
   //A method whose purpose is to prevent the insertion of additional tasks into the queue, the execution of all tasks remaining in the queue and the termination of all   //tasks currently in execution in the collection of threads of the CustomExecutor.
   public void gracefullyTerminate() 
   ```
+  ### Download & run the program
+
+  In order to run this project follow this steps:  
+  1. Download zip from our reposetory : push on code -> Download zip.  
+  2. Extract all on yor computer.  
+  3. Open a new java project.  
+  4. Open the file in your java's workspace.  
+  5. Make a main in order to use the project as you like.  
+  
