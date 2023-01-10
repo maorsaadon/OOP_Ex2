@@ -1,6 +1,63 @@
 
 # OOP_EX2
 
+This project is split into two parts, but in both parts the plan is based on the following cornerstones:  
+  1. Callable
+  2. Future   
+  3. Thread
+  4. Thread Pool
+
+
+### Callable
+A task that returns a result and may throw an exception. Implementors define a single method with no arguments called call.  
+The Callable interface is similar to Runnable, in that both are designed for classes whose instances are potentially executed by another thread.   
+A Runnable, however, does not return a result and cannot throw a checked exception.  
+The Executors class contains utility methods to convert from other common forms to Callable classes.  
+
+### Future
+
+A Future represents the result of an asynchronous computation. Methods are provided to check if the computation is complete, to wait for its completion, and to retrieve the result of the computation. The result can only be retrieved using method get when the computation has completed, blocking if necessary until it is ready. Cancellation is performed by the cancel method. Additional methods are provided to determine if the task completed normally or was cancelled. Once a computation has completed, the computation cannot be cancelled. If you would like to use a Future for the sake of cancellability but not provide a usable result, you can declare types of the form Future<?> and return null as a result of the underlying task.
+
+When the _call()_ method completes, answer must be stored in an object known to the main thread, so that the main thread can know about the result that 
+the thread returned. How will the program store and obtain this result later?  
+For this, a Future object can be used. Think of a Future as an object that holds the result – it may not hold it right now, but it will do so in the future 
+(once the Callable returns).    
+Thus, a Future is basically one way the main thread can keep track of the progress and result from other threads.  
+To implement this interface, 5 methods have to be overridden, but as the example below uses a concrete implementation from the library,  
+only the important methods are listed here.  
+Observe that Callable and Future do two different things – Callable is similar to Runnable, in that it encapsulates a task that   
+is meant to run on another thread, whereas a Future is used to store a result obtained from a different thread.  
+In fact, the Future can be made to work with Runnable as well, which is something that will become clear when Executors come into the picture.  
+
+## Thread
+
+A thread is a thread of execution in a program. The Java Virtual Machine allows an application to have multiple threads of execution running concurrently.
+Every thread has a priority. Threads with higher priority are executed in preference to threads with lower priority. Each thread may or may not also be marked as a daemon. When code running in some thread creates a new Thread object, the new thread has its priority initially set equal to the priority of the creating thread, and is a daemon thread if and only if the creating thread is a daemon.
+
+When a Java Virtual Machine starts up, there is usually a single non-daemon thread (which typically calls the method named main of some designated class). The Java Virtual Machine continues to execute threads until either of the following occurs:
+ - The exit method of class Runtime has been called and the security manager has permitted the exit operation to take place.
+ - All threads that are not daemon threads have died, either by returning from the call to the run method or by throwing an exception that propagates beyond the run method.
+
+There are two ways to create a new thread of execution. One is to declare a class to be a subclass of Thread. This subclass should override the run method of class Thread. An instance of the subclass can then be allocated and started.
+
+The _run()_ method of thread class is called if the thread was constructed using a separate Runnable object otherwise this method does nothing and
+returns. When the _run()_ method calls, the code specified in the _run()_ method is executed. You can call the _run()_ method multiple times.
+
+The _start()_ method of thread class is used to begin the execution of thread. The result of this method is two threads that are running concurrently:  
+the current thread (which returns from the call to the __start()__) and the other thread (which executes its __run()__).
+
+When a program calls the start() method, a new thread is created and then the run() method is executed.   
+But if we directly call the run() method then no new thread will be created and run() method will be executed as a normal method call on the current
+calling thread itself and no multi-threading will take place.
+
+## Thread Pool
+
+In Java, threads are mapped to system-level threads, which are the operating system's resources. If we create threads uncontrollably, we may run out of these resources quickly.
+The operating system does the context switching between threads as well — in order to emulate parallelism. A simplistic view is that the more threads we spawn, the less time each thread spends doing actual work.
+The Thread Pool pattern helps to save resources in a multithreaded application and to contain the parallelism in certain predefined limits.
+When we use a thread pool, we write our concurrent code in the form of parallel tasks and submit them for execution to an instance of a thread pool. This instance controls several re-used threads for executing these tasks.
+The pattern allows us to control the number of threads the application creates and their life cycle. We're also able to schedule tasks' execution and keep incoming tasks in a queue.
+
 ## PartA
 
 In this part we will create several text files and calculate the total number of lines in these files.  
