@@ -30,6 +30,17 @@ public class CustomExecutor extends ThreadPoolExecutor{
 
     /**
      * <p>
+     *     In order to get the class's TaskTypeArr <br>
+     * </p>
+     * @return TaskTypeArr
+     */
+    public int[] getTaskTypeArr() {
+        return taskTypeArr;
+    }
+
+
+    /**
+     * <p>
      *     Method of ThreadPoolExecutor class is invoked before executing the given Runnable in the given thread. <br>
      *     This method is invoked by thread t that will execute task r, and may be used to re-initialize ThreadLocals,
      *     or to perform logging. <br>

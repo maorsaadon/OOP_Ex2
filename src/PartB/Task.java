@@ -89,7 +89,7 @@ public class Task<T> extends FutureTask<T>
 
     /**
      * <p>
-     *     In order to save diffusivity value in taskType <br>
+     *     In order to save default value in taskType <br>
      * </p>
      */
     public void setTaskType() {
