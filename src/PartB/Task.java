@@ -3,7 +3,6 @@ package PartB;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
-
 import static PartB.TaskType.*;
 
 /**
@@ -36,7 +35,7 @@ public class Task<T> extends FutureTask<T>
 
     /**
      * <p>
-     *      Constructor that get two parameters.<br>
+     *      Constructor that get one parameters.<br>
      *      taskType will be automatically type 3 (OTHER)
      * </p>
      * @param callable
