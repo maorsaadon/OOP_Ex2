@@ -169,7 +169,7 @@ public class CustomExecutor extends ThreadPoolExecutor{
      */
     public void gracefullyTerminate()  {
         try {
-            super.awaitTermination((long) 0.1, SECONDS);
+            super.awaitTermination((long) 2, SECONDS);
             super.shutdownNow();
         }catch (InterruptedException err) {
             System.err.println(err);
