@@ -104,7 +104,7 @@ If multiple threads within a process are competing for the same resources, this 
 On the other hand, processes are typically isolated from one another, so the presence of other processes should not have a significant impact on the running time of a particular process.
 
 
-## Download & run the program
+### Download & run the program
 
 In order to run this project follow this steps:  
   1. Download zip from our reposetory : push on code -> Download zip.  
