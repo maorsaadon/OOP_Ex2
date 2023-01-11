@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
 
+import java.util.Arrays;
 import java.util.concurrent.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -119,10 +120,19 @@ public class Test_Ex2_2 {
         }, TaskType.OTHER);
         CustomExecutor customExecutor = new CustomExecutor();
         customExecutor.submit(task3);
+        customExecutor.submit(task3);
+        customExecutor.submit(task3);
         customExecutor.submit(task2);
+        customExecutor.submit(task2);
+        customExecutor.submit(task2);
+        customExecutor.submit(task2);
+        customExecutor.submit(task2);
+        System.out.println(Arrays.toString(customExecutor.getTaskTypeArr()));
         assertEquals(2, customExecutor.getCurrentMax());
         customExecutor.submit(task1);
         assertEquals(1, customExecutor.getCurrentMax());
+
+
     }
 
     @Test

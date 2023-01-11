@@ -52,7 +52,7 @@ public class CustomExecutor extends ThreadPoolExecutor{
     @Override
     protected void beforeExecute(Thread thread, Runnable run) {
         int priority = getCurrentMax();
-        if (1<=priority && priority<=3)
+        if (1<=priority && priority<=10)
             taskTypeArr[priority-1]--;
     }
 
@@ -66,11 +66,7 @@ public class CustomExecutor extends ThreadPoolExecutor{
      */
     @Override
     protected <T> RunnableFuture<T> newTaskFor(Callable<T> callable) {
-        int priority = getCurrentMax();
-        TaskType type = TaskType.OTHER;
-        if (1<=priority && priority<=10)
-            type.setPriority(priority);
-        return Task.createTask(callable, type);
+        return Task.createTask(callable);
     }
 
     /**
