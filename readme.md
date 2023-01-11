@@ -58,7 +58,7 @@ The Thread Pool pattern helps to save resources in a multithreaded application a
 When we use a thread pool, we write our concurrent code in the form of parallel tasks and submit them for execution to an instance of a thread pool. This instance controls several re-used threads for executing these tasks.
 The pattern allows us to control the number of threads the application creates and their life cycle. We're also able to schedule tasks' execution and keep incoming tasks in a queue.
 
-## PartA
+## Ex2_1
 
 In this part we will create several text files and calculate the total number of lines in these files.  
 We will use three methods:  
@@ -152,7 +152,7 @@ In order to run this project follow this steps:
   5. go to Ex2 class.   
   7. Run the project.  
   
-## PartB
+## Ex2_2
   
   Int this part we will create a new type that represents an asynchronous task with priority and a new ThreadPool type that supports owning tasks priority.  
   

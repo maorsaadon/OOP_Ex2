@@ -1,7 +1,5 @@
-package PartA;
+package Ex2_1;
 import org.junit.jupiter.api.*;
-
-import java.io.File;
 
 import static java.lang.Thread.sleep;
 
