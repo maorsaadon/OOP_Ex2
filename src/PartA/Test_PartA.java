@@ -2,37 +2,26 @@ package PartA;
 import org.junit.jupiter.api.*;
 
 import java.io.File;
-import org.junit.jupiter.api.Test;
-import org.junit.platform.commons.logging.Logger;
-import org.junit.platform.commons.logging.LoggerFactory;
-import java.util.concurrent.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static java.lang.Thread.sleep;
 
-public class Tests {
 
-    static String[] fileNames;
+public class Test_PartA {
+
+    static String[] filesNames;
     static Ex2_1 test = new Ex2_1();
 
-    public static void deleteFiles(int n){
-        for(int i=1;i<=n;i++){
-            String name = "file_"+i+".txt";
-            File file = new File(name);
-            file.deleteOnExit();
-        }
-    }
 
     @BeforeAll
     public static void runOnceBefore() {
-        fileNames = Ex2_1.createTextFiles(1000,(int)(Math.random()*100),99999);
+        filesNames = Ex2_1.createTextFiles(100,(int)(Math.random()*100),99999);
         System.out.println("Starting testes...");
     }
 
 
     @BeforeEach
     public void runBeforeEach() {
-        System.out.println("----------------------------------------");
-        System.out.println("Running new test...");
+        System.out.println("----------------------------------------------");
     }
 
     @AfterEach
@@ -44,33 +33,36 @@ public class Tests {
     @org.junit.jupiter.api.Test
     void getNumOfLines() {
         long start = System.currentTimeMillis();
-        int x = Ex2_1.getNumOfLines(fileNames);
-        System.out.println("[NORMAL] Total lines " + x + ". \n Time: " + (System.currentTimeMillis() - start) + "ms");
+        int x = Ex2_1.getNumOfLines(filesNames);
+        System.out.println("part A, Function 2, sum of lines: " + x + ".\nTime: " + (System.currentTimeMillis() - start) + "ms");
     }
 
     @org.junit.jupiter.api.Test
     void getNumOfLinesThreads() {
         long start = System.currentTimeMillis();
-        int x = test.getNumOfLinesThreads(fileNames);
-        System.out.println("[THREAD] Total lines " + x + ". Time: " + (System.currentTimeMillis() - start) + "ms");
+        int x = test.getNumOfLinesThreads(filesNames);
+        System.out.println("part A, Function 3, sum of lines: " + x + ".\nTime: " + (System.currentTimeMillis() - start) + "ms");
     }
 
     @org.junit.jupiter.api.Test
     void getNumOfLinesThreadPool() {
         long start = System.currentTimeMillis();
-        int x = test.getNumOfLines(fileNames);
-        System.out.println("[THREAD POOL] Total lines " + x + ". \n Time: " + (System.currentTimeMillis() - start) + "ms");
+        int x = test.getNumOfLinesThreadPool(filesNames);
+        System.out.println("part A, Function 4, sum of lines: " + x + ".\nTime: " + (System.currentTimeMillis() - start) + "ms");
     }
+
 
     @AfterAll
-    public static void runOnceAfter() {
-        System.out.println("\nTestes ended!");
-        deleteFiles(1000);
+    public static void runOnceAfter_deleteFiles() {
+        System.out.println("\nTestes ended successfully!");
+        test.deleteFiles(filesNames.length);
     }
 
-
-
 }
+
+
+
+
 
 
 

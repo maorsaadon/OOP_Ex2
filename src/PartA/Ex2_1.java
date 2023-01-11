@@ -1,9 +1,6 @@
 package PartA;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
@@ -11,10 +8,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 
+import static java.lang.Thread.sleep;
+
 public class Ex2_1 {
 
     /**
-     * this function sum the amount of lines in each file
+     * This function sum the amount of lines in each file
      * @param file
      * @return the amount of lines
      */
@@ -32,6 +31,19 @@ public class Ex2_1 {
             exe.printStackTrace();
         }
         return currentSum;
+    }
+
+    /**
+     * we made this function in order to delete all the files that has been made.
+     * @param length
+     */
+    public static void deleteFiles(int length) {
+        for(int i=1; i<= length; i++){
+            String name = "file_"+i+".txt";
+            File file = new File(name);
+            file.deleteOnExit();
+        }
+        System.out.println("all files deleted !");
     }
 
     /**
@@ -71,13 +83,11 @@ public class Ex2_1 {
      * @return the amount of lines in all files
      */
     public static int getNumOfLines(String[] fileNames) {
-        long start = System.currentTimeMillis();
         int counter = 0;
         for (int i = 0; i < fileNames.length; i++) {
             counter += sum_lines(fileNames[i]);
         }
         long end = System.currentTimeMillis();
-        System.out.println("Function 'getNumOfLines' run for: " + (end - start) + " ms.");
         return counter;
     }
 
@@ -89,7 +99,6 @@ public class Ex2_1 {
      * @return the amount of lines in all files
      */
     public int getNumOfLinesThreads(String[] fileNames) {
-        long start = System.currentTimeMillis();
         int sum = 0;
         FileThread[] arr = new FileThread[fileNames.length];
         for (int i = 0; i < arr.length; i++){
@@ -102,8 +111,6 @@ public class Ex2_1 {
                 e.printStackTrace();
             }
         }
-        long end = System.currentTimeMillis();
-        System.out.println("Function 'getNumOfLinesThreads' run for: " + (end - start) + " ms.");
         return sum;
     }
 
@@ -114,7 +121,6 @@ public class Ex2_1 {
      * @return the amount of lines in all files
      */
     public int getNumOfLinesThreadPool(String[] fileNames) {
-        long start = System.currentTimeMillis();
         ThreadPoolExecutor pool = (ThreadPoolExecutor) Executors.newFixedThreadPool(fileNames.length);
         int sum = 0;
         ArrayList<Future<Integer>> future = new ArrayList<Future<Integer>>();
@@ -132,8 +138,6 @@ public class Ex2_1 {
         }
 
         pool.shutdown();
-        long end = System.currentTimeMillis();
-        System.out.println("Function 'getNumOfLinesThreadPool' run for: " + (end - start) + " ms.");
         return sum;
     }
 
