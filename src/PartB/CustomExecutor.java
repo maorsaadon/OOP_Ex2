@@ -45,11 +45,6 @@ public class CustomExecutor<T> extends ThreadPoolExecutor{
         this.taskTypeArr = taskTypeArr;
     }
 
-//    public static String toString(){
-//
-//        return getTaskTypeArr().toString();
-//    }
-//
     /**
      * empty constructor
      */
