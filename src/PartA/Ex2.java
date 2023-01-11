@@ -19,15 +19,15 @@ public class Ex2 {
         //4
         System.out.println("part A, Function 4, done : " + x.getNumOfLinesThreadPool(str));
 
-        deleteFiles(100);
+        //deleteFiles(100);
     }
 
-    public static void deleteFiles(int n){
-        for(int i=0;i<n;i++){
-            String name = "file_"+i+".txt";
-            File file = new File(name);
-            file.deleteOnExit();
-        }
-    }
+//    public static void deleteFiles(int n){
+//        for(int i=0;i<n;i++){
+//            String name = "file_"+i+".txt";
+//            File file = new File(name);
+//            file.deleteOnExit();
+//        }
+//    }
 
 }
