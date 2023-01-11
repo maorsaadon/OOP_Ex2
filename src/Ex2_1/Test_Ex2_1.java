@@ -4,7 +4,7 @@ import org.junit.jupiter.api.*;
 import static java.lang.Thread.sleep;
 
 
-public class Test_PartA {
+public class Test_Ex2_1 {
 
     static String[] filesNames;
     static Ex2_1 test = new Ex2_1();

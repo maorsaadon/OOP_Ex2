@@ -4,14 +4,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
 
-import java.util.Arrays;
 import java.util.concurrent.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class Test_PartB {
-    public static final Logger logger = LoggerFactory.getLogger(Test_PartB.class);
+public class Test_Ex2_2 {
+    public static final Logger logger = LoggerFactory.getLogger(Test_Ex2_2.class);
 
     @Test
     void TaskType() {
