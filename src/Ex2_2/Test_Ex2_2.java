@@ -23,12 +23,7 @@ public class Test_Ex2_2 {
 
     @Test
     void Task_constructors() {
-        Callable<String> callable = new Callable<String>() {
-            @Override
-            public String call() throws Exception {
-                return "| abcd |";
-            }
-        };
+        Callable<String> callable = () -> "| abcd |";
 
         Task<String> t1 = Task.createTask(callable);
         Task<String> t2 = Task.createTask(callable, TaskType.IO);
@@ -38,43 +33,23 @@ public class Test_Ex2_2 {
 
     @Test
     void Task_call() throws Exception {
-        Callable<String> callable = new Callable<String>() {
-            @Override
-            public String call() throws Exception {
-                return "| abcd |";
-            }
-        };
+        Callable<String> callable = () -> "| abcd |";
         Task<String> t1 = Task.createTask(callable);
         assertEquals("| abcd |", t1.call());
     }
 
     @Test
     void Task_get_type() {
-        Callable<String> callable = new Callable<String>() {
-            @Override
-            public String call() throws Exception {
-                return "| abcd |";
-            }
-        };
+        Callable<String> callable = () -> "| abcd |";
         Task<String> t1 = Task.createTask(callable, TaskType.IO);
         assertEquals(2, t1.getPriority());
     }
 
     @Test
     void Task_compare() {
-        Callable<String> callable = new Callable<String>() {
-            @Override
-            public String call() throws Exception {
-                return "| abcd |";
-            }
-        };
+        Callable<String> callable = () -> "| abcd |";
         Task<String> t1 = Task.createTask(callable, TaskType.IO);
-        Callable<String> callable2 = new Callable<String>() {
-            @Override
-            public String call() throws Exception {
-                return "|";
-            }
-        };
+        Callable<String> callable2 = () -> "|";
         Task<String> t2 = Task.createTask(callable2, TaskType.IO);
         Task<String> t3 = Task.createTask(callable2, TaskType.COMPUTATIONAL);
         Task<String> t4 = Task.createTask(callable2, TaskType.OTHER);
@@ -86,12 +61,9 @@ public class Test_Ex2_2 {
 
     @Test
     void customExecutor_submit() {
-        Callable<String> callable = new Callable<String>() {
-            @Override
-            public String call() throws Exception {
-                Thread.sleep(3000);
-                return "| abcd |";
-            }
+        Callable<String> callable = () -> {
+            Thread.sleep(3000);
+            return "| abcd |";
         };
 
         Task<String> t1 = Task.createTask(callable, TaskType.IO);
@@ -153,13 +125,11 @@ public class Test_Ex2_2 {
         Future<Integer> f3 = customExecutor.submit(task3);
         Future<Integer> f2 = customExecutor.submit(task2);
         Future<Integer> f1 = customExecutor.submit(task1);
-        int answer = 0;
+        int answer;
         try {
             answer = f1.get() + f2.get() + f3.get();
             Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
         assertEquals(3, answer);
@@ -183,7 +153,7 @@ public class Test_Ex2_2 {
             throw new RuntimeException(e);
         }
         assertEquals(50, customExecutor.getCompletedTaskCount());
-        assertEquals(true, customExecutor.isTerminated());
+        assertTrue(customExecutor.isTerminated());
     }
 
 
@@ -213,15 +183,13 @@ public class Test_Ex2_2 {
             return sb.reverse().toString();
         };
         // var is used to infer the declared type automatically
-        var priceTask = customExecutor.submit(() -> {
-            return 1000 * Math.pow(1.02, 5);
-        }, TaskType.IO);
+        var priceTask = customExecutor.submit(() -> 1000 * Math.pow(1.02, 5), TaskType.IO);
         var reverseTask = customExecutor.submit(callable2, TaskType.IO);
         final Double totalPrice;
         final String reversed;
         try {
-            totalPrice = (Double) priceTask.get();
-            reversed = (String) reverseTask.get();
+            totalPrice = priceTask.get();
+            reversed = reverseTask.get();
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
@@ -238,7 +206,7 @@ public class Test_Ex2_2 {
 
 
         logger.info(() -> "Reversed String = " + reversed);
-        logger.info(() -> String.valueOf("Total Price = " + totalPrice));
+        logger.info(() -> "Total Price = " + totalPrice);
         logger.info(() -> "Current maximum priority = " +
                 customExecutor.getCurrentMax());
         customExecutor.gracefullyTerminate();
