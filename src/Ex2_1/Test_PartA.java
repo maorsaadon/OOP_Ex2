@@ -12,7 +12,7 @@ public class Test_PartA {
 
     @BeforeAll
     public static void runOnceBefore() {
-        filesNames = Ex2_1.createTextFiles(100,(int)(Math.random()*100),99999);
+        filesNames = Ex2_1.createTextFiles(1000,(int)(Math.random()*100),99999);
         System.out.println("Starting testes...");
     }
 
@@ -49,11 +49,9 @@ public class Test_PartA {
         System.out.println("part A, Function 4, sum of lines: " + x + ".\nTime: " + (System.currentTimeMillis() - start) + "ms");
     }
 
-
     @AfterAll
     public static void runOnceAfter_deleteFiles() {
         System.out.println("\nTestes ended successfully!");
-        test.deleteFiles(filesNames.length);
     }
 
 }
