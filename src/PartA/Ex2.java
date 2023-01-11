@@ -10,7 +10,7 @@ public class Ex2 {
     public static void main(String[] args) {
         Ex2_1 x= new Ex2_1();
         //1
-        String[] str = createTextFiles(100, 1, 1000);
+        String[] str = createTextFiles(50, 50, 1000);
         System.out.println("part A, Function 1, done : " + Arrays.toString(str));
         //2
         System.out.println("part A, Function 2, done : " + getNumOfLines(str));

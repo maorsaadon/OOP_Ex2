@@ -2,6 +2,7 @@ package PartA;
 import java.util.concurrent.*;
 
 import static PartA.Ex2_1.sum_lines;
+
 public class FileThreadCallable implements Callable {
     String file_name;
 
