@@ -3,7 +3,6 @@ package PartB;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
-
 import static PartB.TaskType.*;
 
 /**
@@ -14,6 +13,7 @@ import static PartB.TaskType.*;
  * </p>
  * @param <T> generic task
  */
+
 public class Task<T> extends FutureTask<T>
             implements Comparable<Task<T>>, Callable<T>{
 
@@ -92,7 +92,7 @@ public class Task<T> extends FutureTask<T>
      * </p>
      */
     public void setTaskType() {
-        setTaskType(OTHER);
+        setTaskType(TaskType.OTHER);
     }
 
     /**
@@ -151,9 +151,9 @@ public class Task<T> extends FutureTask<T>
      * @return int that relate to the task type by the request.
      */
     public int getPriority(){
-        if (taskType.getType() == COMPUTATIONAL) return COMPUTATIONAL.getPriorityValue();
-        if (taskType.getType() == IO) return IO.getPriorityValue();
-        else return OTHER.getPriorityValue();
+        if (taskType.getType() == COMPUTATIONAL) return 1;
+        if (taskType.getType() == IO) return 2;
+        else return 3;
     }
 
     /**
@@ -191,4 +191,9 @@ public class Task<T> extends FutureTask<T>
                 ", callable=" + callable +
                 '}';
     }
+
 }
+
+
+
+
