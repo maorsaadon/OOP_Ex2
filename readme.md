@@ -120,7 +120,7 @@ This class create object that call file_name - for calculate the sum lines in ea
 
 ### UML diagram of the classes
 
-![ClassDiagram_partA](https://user-images.githubusercontent.com/105555708/211846885-4d939413-04e6-4c42-9a76-3b2654315685.png)
+![ClassDiagram_Ex2_1](https://user-images.githubusercontent.com/105555708/211853385-5f43e220-928a-4251-9638-70cfd7e5b5ea.png)
 
 ### compare running times
 
@@ -182,7 +182,7 @@ In order to run this project follow this steps:
   
 ### UML diagram of the classes
   
-  ![ClassDiagram_PartB](https://user-images.githubusercontent.com/105555708/211847118-b3834ee7-5731-428c-a9c7-2cd8953d4a26.png)
+ ![ClassDiagram_Ex2_2](https://user-images.githubusercontent.com/105555708/211853282-1e8c2b4d-483d-4868-bc5e-13df9bca3e83.png)
   
 ### Download & run the program
 
