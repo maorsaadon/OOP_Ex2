@@ -158,11 +158,10 @@ public class Ex2_1 {
         long start = System.currentTimeMillis();
         ThreadPoolExecutor pool = (ThreadPoolExecutor) Executors.newFixedThreadPool(fileNames.length);
         int sum = 0;
-        ArrayList<Future<Integer>> future = new ArrayList<Future<Integer>>();
+        ArrayList<Future<Integer>> future = new ArrayList<>();
         for (int i = 0; i < fileNames.length; i++) {
             Future<Integer> f = pool.submit(new FileThreadCallable(fileNames[i]));
             future.add(f);
-
         }
         for (Future<Integer> f : future) {
             try {
