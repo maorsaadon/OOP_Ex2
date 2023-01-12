@@ -2,6 +2,7 @@ package Ex2_1;
 import org.junit.jupiter.api.*;
 
 import static java.lang.Thread.sleep;
+import static org.junit.Assert.assertThrows;
 
 
 public class Test_Ex2_1 {
@@ -26,6 +27,15 @@ public class Test_Ex2_1 {
     public void runAfterEach() {
         System.out.println("Finished test.\n");
 
+    }
+
+    @org.junit.jupiter.api.Test
+    void InCorrectInput() {
+        Throwable exception1 = assertThrows(IllegalArgumentException.class,
+                ()->{Ex2_1.createTextFiles(100,10,-1000);});
+
+        Throwable exception2 = assertThrows(NegativeArraySizeException.class,
+                ()->{Ex2_1.createTextFiles(-100,10,1000);});
     }
 
     @org.junit.jupiter.api.Test

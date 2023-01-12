@@ -55,6 +55,8 @@ public class Ex2_1 {
      * @return arrays of files
      */
     public static String[] createTextFiles(int n, int seed, int bound){
+        if (bound <= 0) throw new IllegalArgumentException("Entering incorrect input, please re-enter!");
+        if (n < 0) throw new NegativeArraySizeException("Entering incorrect input, please re-enter!");
         String[] files = new String[n];
         Random rand = new Random(seed);
         for (int i = 0; i < n; i++) {

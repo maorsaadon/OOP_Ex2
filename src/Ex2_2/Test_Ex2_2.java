@@ -5,6 +5,7 @@ import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
 
 import java.util.Arrays;
+import java.util.PriorityQueue;
 import java.util.concurrent.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -156,6 +157,41 @@ public class Test_Ex2_2 {
         assertTrue(customExecutor.isTerminated());
     }
 
+    @Test
+    public void Task() throws ExecutionException, InterruptedException {
+
+        CustomExecutor customExecutor = new CustomExecutor();
+
+        Task task1 = Task.createTask(()->{//Make an invalid task (divided by zero).
+            return 10;
+        });
+        var exception  = customExecutor.submit(task1); //The CustomExecutor get invalid task and catch the exception.
+
+        Task task2 = Task.createTask(()->{
+                    String a = "Maor the Quin";
+                    String b = " and Matan the King";
+                    return a+b;}
+                , TaskType.OTHER);
+        var string_1  = customExecutor.submit(task2);
+        assertEquals("Maor the Quin and Matan the King", string_1.get());
+
+        // Use the Factory method without a TaskType.
+        Task<Integer> task3 = Task.createTask(() -> {
+            Thread.sleep(1000);
+            return 1;
+        });
+        assertEquals(TaskType.OTHER, task3.getTaskType());//Check that the default is OTHER = 3.
+
+        //Use the Factory method with a TaskType.
+        Task<Integer> task4 = Task.createTask(() -> {
+            Thread.sleep(1000);
+            return 1;
+        }, TaskType.COMPUTATIONAL);
+        //Check that the default task type is set correctly and the compare method
+        assertEquals(-1, task4.compareTo(task3));
+    }
+
+
 
     @Test
     public void partialTest() {
@@ -167,17 +203,17 @@ public class Test_Ex2_2 {
             }
             return sum;
         }, TaskType.COMPUTATIONAL);
-//        var sumTask = customExecutor.submit((Callable) task);
-//        final int sum;
-//        try {
-//            sum = (int) sumTask.get(400, TimeUnit.MILLISECONDS);
-//        } catch (InterruptedException | ExecutionException | TimeoutException e) {
-//            throw new RuntimeException(e);
-//        }
-//        logger.info(() -> "Sum of 1 through 10 = " + sum);
-//        Callable<Double> callable1 = () -> {
-//            return 1000 * Math.pow(1.02, 5);
-//        };
+        var sumTask = customExecutor.submit((Callable) task);
+        final int sum;
+        try {
+            sum = (int) sumTask.get(400, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            throw new RuntimeException(e);
+        }
+        logger.info(() -> "Sum of 1 through 10 = " + sum);
+        Callable<Double> callable1 = () -> {
+            return 1000 * Math.pow(1.02, 5);
+        };
         Callable<String> callable2 = () -> {
             StringBuilder sb = new StringBuilder("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
             return sb.reverse().toString();
@@ -200,9 +236,9 @@ public class Test_Ex2_2 {
             }, TaskType.IO);
         }
         TaskType tt = TaskType.COMPUTATIONAL;
-//        customExecutor.submit(() -> {
-//            return 1000 * Math.pow(1.022, 5);
-//        },TaskType.OTHER);
+        customExecutor.submit(() -> {
+            return 1000 * Math.pow(1.022, 5);
+        },TaskType.OTHER);
 
 
         logger.info(() -> "Reversed String = " + reversed);
