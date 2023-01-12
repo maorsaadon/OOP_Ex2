@@ -16,8 +16,8 @@ Let's look at each principle one by one. Following the SOLID acronym, they are:
 
 • The Single Responsibility Principle - the Single Responsibility Principle states that a class should do one thing and therefore it should have only a single reason to change.  
 • The Open-Closed Principle - the Open-Closed Principle requires that classes should be open for extension and closed to modification.  
-• The Liskov Substitution Principle - the Liskov Substitution Principle states that subclasses should be substitutable for their base classes.  
-• The Interface Segregation Principle - segregation means keeping things separated, and the Interface Segregation Principle is about separating the interfaces.
+• The Liskov Substitution Principle - the Liskov Substitution Principle states that subclasses should be substitutable for their base classes.    
+• The Interface Segregation Principle - segregation means keeping things separated, and the Interface Segregation Principle is about separating the interfaces.  
 • The Dependency Inversion Principle - The Dependency Inversion principle states that our classes should depend upon interfaces or abstract classes instead of concrete classes and functions.  
 
 ### Callable
