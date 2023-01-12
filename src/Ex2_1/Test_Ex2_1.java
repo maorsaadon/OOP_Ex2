@@ -51,7 +51,7 @@ public class Test_Ex2_1 {
 
     @AfterAll
     public static void runOnceAfter_deleteFiles() {
-        System.out.println("\nTestes ended successfully!");
+        System.out.println("\nTests ended successfully!");
     }
 
 }
